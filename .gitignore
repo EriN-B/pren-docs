@@ -4,3 +4,6 @@
 # Lokal kompilierte PDFs (Releases kommen aus der CI)
 dist/
 docs/**/*.pdf
+
+# Aufgabenstellung PDF
+assets/project/**/*
