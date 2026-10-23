@@ -41,7 +41,7 @@ machen**.
 
 ### Das Wichtigste in einem Bild
 
-![Ablauf: 1 Pull, 2 Branch erstellen, 3 auf dem Laptop bearbeiten, prüfen und committen, 4 Push, 5 Pull Request, 6 Merge in main](anleitung/git-ablauf.svg)
+![Ablauf: 1 Pull, 2 Branch erstellen, 3 auf dem Laptop bearbeiten, prüfen und committen, 4 Push, 5 Pull Request, 6 Merge in main](assets/git-ablauf.svg)
 
 - **`main`** ist der offizielle Stand des Berichts. Dort arbeitet niemand direkt.
 - Für jede Änderung erstellst du einen eigenen **Branch** (eine Abzweigung zum Arbeiten).

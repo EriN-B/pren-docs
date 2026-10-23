@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/pren-logo-horizontal-white.svg">
+    <img src="assets/logo/pren-logo-horizontal.svg" alt="PREN Team 03" width="360">
+  </picture>
+</p>
+
 # PREN – Team 03
 
 Dokumentation (Typst) für PREN1 HS26 an der HSLU.
