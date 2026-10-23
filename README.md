@@ -2,6 +2,9 @@
 
 Dokumentation (Typst) für PREN1 HS26 an der HSLU.
 
+**Neu im Projekt?** Die [Anleitung](ANLEITUNG.md) erklärt Schritt für Schritt,
+wie du Git, VS Code und Typst einrichtest und Änderungen einbringst.
+
 ## Struktur
 
 ```
