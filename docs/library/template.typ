@@ -15,6 +15,8 @@
   version: sys.inputs.at("version", default: "Entwurf"),
   draft: sys.inputs.at("release", default: "false") != "true",
   logo: none,
+  team-logo: none, // Teamlogo (assets/logo), rechts auf Titelseite
+  team-symbol: none, // Nur das Zeichen, rechts in der Kopfzeile
   accent: rgb("#1f2937"),
   font: "Inter", // liegt in library/fonts
   body,
@@ -68,7 +70,12 @@
 
   // ── Titelseite ─────────────────────────────────────────────
   page(margin: (x: 2.5cm, y: 2.5cm), header: none, footer: none)[
-    #if logo != none { box(height: 1.6cm, logo) }
+    #grid(
+      columns: (1fr, auto),
+      align: (left + horizon, right + horizon),
+      if logo != none { box(height: 1.6cm, logo) },
+      if team-logo != none { box(height: 1.6cm, team-logo) },
+    )
     #v(1fr)
     #text(size: 11pt, fill: luma(110), tracking: 0.08em, upper(module))
     #v(0.2em)
@@ -100,7 +107,10 @@
         columns: (auto, 1fr),
         align: (left + horizon, right + horizon),
         if logo != none { box(height: 0.8cm, logo) },
-        text(size: 8.5pt, fill: luma(110), title),
+        {
+          text(size: 8.5pt, fill: luma(110), title)
+          if team-symbol != none { h(0.5em); box(height: 0.7cm, baseline: 35%, team-symbol) }
+        },
       )
       v(-0.3em)
       line(length: 100%, stroke: 0.4pt + luma(200))
