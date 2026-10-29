@@ -56,6 +56,9 @@ Gegenüber Laufbeinen ist die Fortbewegung auf Rädern deutlich schneller, energ
 *Steuerungsarchitektur.* Für die Steuerung kommt eine kombinierte Architektur aus Raspberry Pi 4 und Mikrocontroller (Raspberry Pi Pico 2) zum Einsatz. Der Raspberry Pi übernimmt die Objekt-, Gesten- und Spracherkennung sowie die Ausgabe von akustischen Signalen, während der Mikrocontroller für die hardwarenahe Steuerung zuständig ist, also für die Motorimpulse, die Aktoren für Reaktionen und die Überwachung von Tastern und Hauptschalter.
 
 Diese Trennung gewährleistet, dass zeitkritische Abläufe unabhängig vom Betriebssystem des Raspberry Pi ausgeführt werden können. Die Kommunikation zwischen beiden Komponenten erfolgt über eine serielle Schnittstelle und ist mit UART einfach, robust und zuverlässig umsetzbar.
+
+#pagebreak()
+
 #vor-risiko(
   ([Trennung von zeitkritischen und zeitunkritischen Prozessen],),
   ([Kommunikation mittels UART funktioniert nicht ordnungsgemäss], [Rechenleistung des Raspberry Pi 4 ist zu schwach]),
@@ -148,6 +151,7 @@ Die Spannungsüberwachung mittels ADC am Mikrocontroller erkennt den Akkuzustand
   ([Keine Kopfbewegung, Kamerabereich zu klein],),
 )
 
+#pagebreak()
 == Variante 2 «Stabiles System» <kap-variante-stabil>
 
 _Robust und sicher: getrennte Versorgung (USV), selbsthemmender Linearaktuator, starre Beine._
@@ -176,6 +180,7 @@ _Robust und sicher: getrennte Versorgung (USV), selbsthemmender Linearaktuator, 
   ([Wenig emotionales Feedback], [Keine Kopfbewegung, Kamerabereich zu klein]),
 )
 
+#pagebreak()
 == Variante 3 «Spass» <kap-variante-spass>
 
 _Ausdrucksstark: Servobeine mit Zwischenstellungen, Lautsprecher, LED-Augen, Schwanz und Kopf._
@@ -187,6 +192,9 @@ _Ausdrucksstark: Servobeine mit Zwischenstellungen, Lautsprecher, LED-Augen, Sch
 *Energie.* Für die Energieversorgung kommt ein LiFePO4-Akku zum Einsatz, welcher die Steuerung sowie die Peripherie mit Strom versorgt. Die Versorgung soll dabei in Peripherie und Steuerung getrennt werden, damit bei Betätigung des Hauptschalters nur die Versorgung zur Peripherie getrennt wird und Störungen durch Aktoren die Versorgung der Steuerung nicht beeinflussen. Verschiedene Spannungspegel für Motoren, Sensoren oder Steuerung werden mit DC/DC-Konvertern realisiert.
 
 Die Spannungsüberwachung mittels ADC am Mikrocontroller erkennt den Akkuzustand sowie den Zustand des Hauptschalters und kann dies dem Raspberry Pi signalisieren. Einzelne Zellen mit einer Nennspannung von 3.2 V können in Serie geschaltet werden, um eine höhere Spannung für das Ansteuern von Motoren zu erreichen.
+
+#pagebreak()
+
 #vor-risiko(
   ([Spannung bricht unter Last kaum zusammen],),
   ([Hohes Gewicht (viele Aktoren erfordern grössere Kapazität)], [Trennung der Spannungsversorgung von Steuerung und Peripherie (Störungen)]),

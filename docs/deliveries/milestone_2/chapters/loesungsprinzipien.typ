@@ -102,6 +102,7 @@ Das Fortbewegungskonzept ist in allen drei Lösungsvarianten gleich und in @kap-
 )
 #offen[Begründung, erste Auslegung Drehmoment/Kraft (Jan Grisiger, Lee Kürsener)]
 
+#pagebreak()
 === Elektronik
 
 ==== Energie
@@ -148,6 +149,7 @@ Der Raspberry Pi 5 bietet durch seinen leistungsfähigeren Prozessor zusätzlich
 
 Für die weitere Konzeptentwicklung wird der Raspberry Pi 5 mit 4 GB RAM bevorzugt. Die zusätzliche Rechenleistung reduziert das Risiko von Engpässen und ermöglicht mehr Spielraum für spätere Anpassungen. Der Raspberry Pi 4 bleibt jedoch eine realistische Alternative, da die bevorzugten Modelle bereits darauf funktionieren.
 
+#pagebreak()
 ==== Steuerung
 #entscheid(
   gewaehlt: [Raspberry Pi Pico 2 als Mikrocontroller für hardwarenahe Aufgaben],
@@ -270,6 +272,7 @@ Vosk beansprucht dagegen nur ungefähr einen CPU-Kern und lässt somit deutlich 
 Die Unterscheidung zwischen eigenständigen Sprachbefehlen und Wörtern innerhalb gewöhnlicher Sätze muss noch verbessert werden. Auch die Erkennung über ein Mikrofon im Livebetrieb steht noch aus.
 // TODO: Picovoice Rhino – Begründung, weshalb nicht getestet.
 
+#pagebreak()
 === Reaktion
 
 ==== Ausgabeelemente und Verhalten
