@@ -96,6 +96,8 @@ Die Varianten wurden pro Kriterium von 0 (nicht erfüllt) bis 10 (vollständig e
 
 Bei den meisten Kriterien wählen alle Varianten dieselbe Ausprägung und werden gleich bewertet. Unterschiede entstehen vor allem bei drei Kriterien: Beim Antrieb erhält «Schnell» nur eine 5, da die DC-Motoren ohne Encoder keine Rückmeldung liefern; «Stabiles System» und «Spass» erhalten eine 8. Bei der Energie überzeugt der LiFePO4-Akku von «Spass» durch Sicherheit und stabile Spannung (9), während LiPo («Schnell») und Akku mit USV («Stabiles System») je eine 8 erhalten. Bei Reaktion / Emotion erreicht «Spass» eine 10, weil LED-Matrix, Lautsprecher und Bewegung eine deutliche Quittierung ermöglichen.
 
+// TODO: Bewertung Reaktion/Emotion neu prüfen: «Stabiles System» (3) wurde mit Piezo-Buzzer bewertet,
+//       seit dem Teamentscheid vom 29.10.2026 haben alle Varianten einen Lautsprecher.
 // TODO: Weitere Abweichungen begründen: Simulator (Spass 10 vs. 9, wegen Rerun?) und
 //       Reaktion/Emotion Schnell 4 vs. Stabil 3.
 // TODO: Kriterien Kosten/Budget und Gewicht fehlen in der NWA, obwohl Risiken R03 (Gewicht, R = 16) und

@@ -9,6 +9,8 @@
   milestone: "Meilenstein 2",
   date: datetime(year: 2026, month: 10, day: 30),
   logo: image("../../library/assets/hslu-logo.png"),
+  team-logo: image("../../library/assets/pren-logo-horizontal.svg"),
+  team-symbol: image("../../library/assets/pren-logo-symbol.svg"),
 )
 
 // Meilenstein 2 gemäss Aufgabenstellung (Abschnitt 4.3):

@@ -85,7 +85,7 @@ Der morphologische Kasten umfasst 17 Parameter in den fünf Bereichen Mechanik, 
   gewaehlt: [Beine mit Rädern (Gelenk)],
   verworfen: [Laufbeine; Beine mit Rädern (starr); Beine mit Rädern (ein- und ausfahrbar)],
 )
-Die Fortbewegung erfolgt rollend über Räder an den Beinenden; die Beine dienen der Höhenverstellung und den Körperhaltungen «Sitz», «Platz» und «Auf». Gelenkt wird über einen Differenzialantrieb, wodurch der Roboter an Ort drehen kann. Gegenüber Laufbeinen ist diese Lösung schneller, energieeffizienter und einfacher zu regeln.
+Das Fortbewegungskonzept ist in allen drei Lösungsvarianten gleich und in @kap-gemeinsame-basis beschrieben.
 // TODO: Bewertung/Begründung ergänzen (Jan Grisiger, Lee Kürsener).
 
 ==== Design (Beingeometrie)
@@ -114,10 +114,14 @@ Die Fortbewegung erfolgt rollend über Räder an den Beinenden; die Beine dienen
 
 ==== Rechenplattform <kap-eval-rechenplattform>
 #entscheid(
-  gewaehlt: [Raspberry Pi 4 (4 GB)],
+  gewaehlt: [#offen[Raspberry Pi 4 (4 GB) oder Raspberry Pi 5 (4 GB) – Teamentscheid]],
   verworfen: [NVIDIA Jetson Orin Nano (Budget)],
 )
-Die Modelle für Objekt- und Spracherkennung wurden auf einem Raspberry Pi 4 mit vier CPU-Kernen getestet (@tab-test-objekterkennung, @tab-test-spracherkennung). @tab-cpu-kombination zeigt die addierte CPU-Auslastung bei gleichzeitigem Betrieb; 100 % entsprechen einem voll ausgelasteten Kern, verfügbar sind 400 %.
+// TODO: ENTSCHEID NÖTIG – Der Text unten (aus «Sprach- und Objekterkennung.docx») bevorzugt den
+//       Raspberry Pi 5, Morph. Kasten, Lösungsvarianten, Nutzwertanalyse und Budget gehen vom
+//       Raspberry Pi 4 aus. Nach dem Entscheid Box oben und ggf. die anderen Kapitel anpassen.
+// Text wörtlich aus «Sprach- und Objekterkennung.docx» (Abschnitt Rechenarchitektur).
+Die bisherigen Tests wurden auf einem Raspberry Pi 4 mit vier CPU-Kernen durchgeführt. Die gemessenen CPU-Auslastungen ermöglichen eine erste Abschätzung des gleichzeitigen Betriebs (@tab-cpu-kombination).
 
 #figure(
   {
@@ -135,17 +139,23 @@ Die Modelle für Objekt- und Spracherkennung wurden auf einem Raspberry Pi 4 mit
   caption: [Abschätzung der CPU-Auslastung auf dem Raspberry Pi 4 bei gleichzeitigem Betrieb],
 ) <tab-cpu-kombination>
 
-Die bevorzugte Kombination aus YOLOE-26n und Vosk lässt rechnerisch rund 121 % CPU-Leistung für Gestenerkennung, Navigation und Systemprozesse frei. Ob diese Reserve ausreicht, ist noch offen.
-// TODO: ENTSCHEID NÖTIG – Widerspruch in den Unterlagen: «Sprach- und Objekterkennung.docx» bevorzugt
-//       Raspberry Pi 5 (4 GB) für die weitere Konzeptentwicklung, Morph. Kasten, Nutzwertanalyse und
-//       Budget gehen vom Raspberry Pi 4 aus. Entscheid hier und in der Nutzwertanalyse festhalten.
+Da maximal 400 % CPU-Leistung zur Verfügung stehen, können die Kombinationen mit Whisper und Whistle ihre einzeln gemessene Verarbeitungsgeschwindigkeit bei gleichzeitiger Ausführung nicht aufrechterhalten. Dadurch wären Verzögerungen zu erwarten.
 
+YOLOE-26n und Vosk benötigen zusammen rechnerisch ungefähr 279 % CPU-Leistung. Damit verbleiben rund 121 % für Gestenerkennung, Navigation und weitere Systemprozesse. Wobei aber nicht alle gleichzeitig laufen werden.
+
+Der Raspberry Pi 4 könnte die bevorzugte Modellkombination somit grundsätzlich bewältigen. Allerdings ist unklar, ob die verbleibende Rechenleistung für alle weiteren Funktionen ausreicht.
+
+Der Raspberry Pi 5 bietet durch seinen leistungsfähigeren Prozessor zusätzliche Reserven. Falls im Verlauf weiterer Tests Bedenken zur Rechenkapazität aufkommen, sollte ein Wechsel zu dieser Plattform diskutiert werden.
+
+Für die weitere Konzeptentwicklung wird der Raspberry Pi 5 mit 4 GB RAM bevorzugt. Die zusätzliche Rechenleistung reduziert das Risiko von Engpässen und ermöglicht mehr Spielraum für spätere Anpassungen. Der Raspberry Pi 4 bleibt jedoch eine realistische Alternative, da die bevorzugten Modelle bereits darauf funktionieren.
+
+#pagebreak()
 ==== Steuerung
 #entscheid(
   gewaehlt: [Raspberry Pi Pico 2 als Mikrocontroller für hardwarenahe Aufgaben],
   verworfen: [TinyK22; ESP32-S3; ESP32 (C-Series / Classic)],
 )
-Die Steuerung ist zweigeteilt: Der Raspberry Pi übernimmt Objekt-, Gesten- und Spracherkennung sowie die Audioausgabe, der Mikrocontroller die zeitkritischen Aufgaben wie Motoransteuerung, Aktoren und Überwachung von Tastern und Hauptschalter. Ein erster Test hat gezeigt, dass der Pico 2 geeignet ist (Sitzung vom 09.10.2026).
+Die Steuerungsarchitektur ist in allen drei Lösungsvarianten gleich und in @kap-gemeinsame-basis beschrieben. Ein erster Test hat gezeigt, dass der Pico 2 geeignet ist (Sitzung vom 09.10.2026).
 // TODO: Testergebnis Pico 2 konkretisieren (was wurde getestet? PWM?) – Samuel Felder.
 
 ==== Schnittstelle / Kommunikation
@@ -155,7 +165,6 @@ Die Steuerung ist zweigeteilt: Der Raspberry Pi übernimmt Objekt-, Gesten- und 
 )
 #offen[Begründung, Protokoll (z. B. ACK/NACK, siehe Risiko R16) – Eric Frick, Samuel Felder]
 
-#pagebreak()
 === Wahrnehmung
 
 ==== Navigation
@@ -170,7 +179,11 @@ Die Steuerung ist zweigeteilt: Der Raspberry Pi übernimmt Objekt-, Gesten- und 
   gewaehlt: [RGB-Kamera am Kopf und Ultraschallsensor in Bodennähe; Software YOLOE-26n],
   verworfen: [Lidar; Time-of-Flight-, KI- und Stereo-Kamera; YOLO-World; YOLO26n],
 )
-Für die Software wurden YOLO-World @ultralytics-yoloworld und YOLOE-26n @ultralytics-yoloe auf einem Raspberry Pi 4 mit drei Bildern mit Knochen und zwei Bildern ohne Knochen verglichen (@tab-test-objekterkennung). YOLO26n @ultralytics-yolo26 wurde nicht getestet, da es ein eigenes Training erfordert. YOLOE-26n wurde im NCNN-Format exportiert, auf Bounding Boxes ohne Segmentierung reduziert und mit einer Eingabeauflösung von 512 × 384 Pixeln, einem Konfidenzschwellwert von 0.30 und den Textbeschreibungen «bone», «dog bone», «dog chew bone» und «chew toy» betrieben.
+// Text wörtlich aus «Sprach- und Objekterkennung.docx» (Abschnitt Objekterkennung);
+// Dezimalkomma → Dezimalpunkt gemäss Berichtskonvention, Quellenangaben ergänzt.
+Zur Erkennung des Knochens wurden YOLO-World @ultralytics-yoloworld und YOLO-26n @ultralytics-yolo26 vorgesehen. Da YOLO-26n Fine-Tuning benötigt, ist es kaum sinnvoll. Bei der genaueren Evaluation von YOLO-World ist uns jedoch das Modell YOLOE-26n @ultralytics-yoloe aufgefallen. Es ist kleiner als das World-Modell, benötigt aber kein eigenes Training. Beide wurden dann auf einem Raspberry Pi 4 getestet. Dabei wurden drei Positivbilder mit Knochen und zwei Negativbilder ohne Knochen verwendet (@tab-test-objekterkennung).
+
+Für den späteren Videobetrieb wurde YOLOE-26n auf die Ausgabe von Bounding Boxes ohne Segmentierung reduziert und im NCNN-Format exportiert. Das Modell verwendet eine feste Eingabeauflösung von 512 × 384 Pixeln und einen Konfidenzschwellwert von 0.30. Die vier Textbeschreibungen «bone», «dog bone», «dog chew bone» und «chew toy» sind im exportierten Modell fest hinterlegt. Neue Beschreibungen erfordern einen erneuten Export.
 
 #figure(
   {
@@ -180,29 +193,42 @@ Für die Software wurden YOLO-World @ultralytics-yoloworld und YOLOE-26n @ultral
       align: (x, _) => if x == 0 { left } else { center },
       table.header([Kriterium], [YOLO-World], [YOLOE-26n]),
       [Ø Inferenzzeit], [2.06 s], [0.235 s],
-      [Bilder pro Sekunde], [0.12], [4.20],
+      [FPS], [0.12], [4.20],
       [Ø CPU-Auslastung], [136 %], [179 %],
-      [True Positives], [2 / 3], [3 / 3],
-      [False Positives], [1 / 2], [0 / 2],
-      [Korrekte Ergebnisse], [3 / 5], [5 / 5],
+      [True Positives], [2/3], [3/3],
+      [False Positives], [1/2], [0/2],
+      [Total Ergebnisse], [3/5], [5/5],
     )
   },
   caption: [Vergleich der Objekterkennung auf dem Raspberry Pi 4],
 ) <tab-test-objekterkennung>
 
-YOLOE-26n wird bevorzugt, da alle fünf Testbilder korrekt ausgewertet wurden und die Verarbeitung rund 17-mal schneller ist. Die Tests erfolgten noch nicht mit der endgültigen Kamera.
-// TODO: Widerspruch klären – Text im Testdokument: «YOLO-World erkannte nur eines der drei Positivbilder»
-//       und «beide Modelle wiesen die Negativbilder korrekt zurück», Tabelle sagt 2/3 TP und 1/2 FP.
+YOLOE-26n mit NCNN wird bevorzugt, da alle fünf Testbilder korrekt ausgewertet wurden und der separate Leistungstest durchschnittlich 4.26 Bilder pro Sekunde erreichte. YOLO-World erkannte im letzten Vergleichstest nur eines der drei Positivbilder. Bei beiden Modellen wurden die zwei Negativbilder korrekt zurückgewiesen.
+// TODO: Widerspruch klären – Tabelle: YOLO-World 2/3 TP und 1/2 FP; Text: 1/3 erkannt, beide
+//       Negativbilder korrekt zurückgewiesen, aber im nächsten Absatz «ein False Positive».
+
+YOLOE-26n mit NCNN benötigt während der Inferenz zwar mehr CPU-Leistung, verarbeitet die Bilder jedoch wesentlich schneller. Bei YOLO-World trat zudem ein False Positive auf (@fig-yoloworld-fp). Aufgrund der längeren Inferenzzeit und geringeren Zuverlässigkeit wird dieses Modell nicht weiter priorisiert.
+
+#figure(
+  image("../assets/yoloworld-false-positive.jpg", width: 70%),
+  caption: [False Positive von YOLO-World: Murmeltier als «dog chew bone» erkannt (Konfidenz 0.357)],
+) <fig-yoloworld-fp>
+
+Hierbei ist noch wichtig zu erwähnen, dass das Ganze nicht auf der schlussendlichen Kamera getestet werden konnte.
 
 ==== Gestenerkennung
 #entscheid(
   gewaehlt: [MediaPipe Hand Landmarker mit k-Nearest-Neighbors-Klassifikator],
   verworfen: [MobileCLIP2-S2],
 )
-MediaPipe @mediapipe erkennt die Gelenkpunkte der Hand; anhand dieser Koordinaten werden die Gesten «Sitz», «Platz» und «Auf» klassifiziert. In Tests auf einem Laptop zeigte MediaPipe eine bessere Erkennung bei geringerem Rechenaufwand als MobileCLIP2-S2 @mobileclip. Ein Test auf dem Raspberry Pi 4 steht noch aus.
-// TODO: Testaufbau/Resultate Laptop-Test quantifizieren (Anzahl Gesten, Personen, Erkennungsrate).
+// Text wörtlich aus «Sprach- und Objekterkennung.docx» (Abschnitt Gestenerkennung).
+Für die Erkennung der drei Handgesten «Sitz», «Platz» und «Auf» wurden MediaPipe Hand Landmarker @mediapipe und MobileCLIP2-S2 @mobileclip untersucht.
 
-#pagebreak()
+MediaPipe wurde bereits auf einem Laptop getestet und wird für die weitere Entwicklung bevorzugt. Das Modell erkennt die Gelenkpunkte der Hand, anhand derer die drei Gesten durch eine eigene Logik unterschieden werden können. MobileCLIP2-S2 wird aufgrund der schlechten Erkennung und des höheren Rechenaufwands verworfen.
+
+Ein Test auf dem Raspberry Pi 4 wurde nicht gemacht und wird auch nicht als nötig empfunden. Da MediaPipe für ressourcenbeschränkte Geräte optimiert ist und die Gestenerkennung auf einem vergleichsweise leichtgewichtigen Modell mit anschliessender Auswertung der Gelenkpunkte basiert, wird die Ausführung auf dem Raspberry Pi 4 als sehr sicher lauffähig eingeschätzt. Es bestehen keine Bedenken diesbezüglich. Die tatsächliche CPU-Auslastung und Erkennungsgeschwindigkeit müssen jedoch im Betrieb gemessen werden.
+// TODO: Letzter Satz im Original unvollständig («müssen jedoch im werden») – Ergänzung «Betrieb gemessen» prüfen.
+
 ==== Audioerfassung
 #entscheid(
   gewaehlt: [USB-Mikrofon direkt am Raspberry Pi],
@@ -215,7 +241,8 @@ MediaPipe @mediapipe erkennt die Gelenkpunkte der Hand; anhand dieser Koordinate
   gewaehlt: [Vosk],
   verworfen: [OpenAI Whisper; Whistle; Picovoice Rhino],
 )
-Whisper @whisper, Whistle und Vosk @vosk wurden auf einem Raspberry Pi 4 mit einer Aufnahme von 12.14 s Länge verglichen (@tab-test-spracherkennung). Alle drei Modelle erkannten die sechs gesprochenen Testwörter korrekt.
+// Text wörtlich aus «Sprach- und Objekterkennung.docx» (Abschnitt Spracherkennung).
+Für die Spracherkennung wurden Whisper @whisper, Whistle und Vosk @vosk auf einem Raspberry Pi 4 verglichen. Alle drei Modelle erkannten die sechs gesprochenen Testwörter korrekt (@tab-test-spracherkennung).
 
 #figure(
   {
@@ -223,16 +250,26 @@ Whisper @whisper, Whistle und Vosk @vosk wurden auf einem Raspberry Pi 4 mit ein
     table(
       columns: (1fr, auto, auto, auto),
       align: (x, _) => if x == 0 { left } else { center },
-      table.header([Modell], [Verarbeitungszeit], [CPU-Auslastung], [Testwörter erkannt]),
-      [Whisper], [50.87 s], [362.6 %], [6 / 6],
-      [Whistle], [5.18 s], [353.1 %], [6 / 6],
-      [Vosk], [2.76 s], [99 %], [6 / 6],
+      table.header([Modell], [Verarbeitungszeit (12.14 s Audio)], [CPU-Auslastung], [Testergebnisse]),
+      [Whisper], [50.87 s], [362.6 %], [Alle bestanden],
+      [Whistle], [5.18 s], [353.1 %], [Alle bestanden],
+      [Vosk], [2.76 s], [99 %], [Alle bestanden],
     )
   },
-  caption: [Vergleich der Spracherkennung auf dem Raspberry Pi 4 (Aufnahme 12.14 s)],
+  caption: [Vergleich der Spracherkennung auf dem Raspberry Pi 4],
 ) <tab-test-spracherkennung>
 
-Vosk wird bevorzugt, da es die kürzeste Verarbeitungszeit und mit rund einem Kern die mit Abstand geringste CPU-Auslastung aufweist. Offen sind die Unterscheidung zwischen eigenständigen Befehlen und Wörtern in Sätzen sowie ein Test über das Mikrofon im Live-Betrieb.
+Die CPU-Auslastung bezieht sich auf die vier Kerne des Raspberry Pi 4, wobei 100 % einem vollständig ausgelasteten Kern entsprechen.
+
+Vosk wird bevorzugt, da es die kürzeste Verarbeitungszeit und mit Abstand die geringste CPU-Auslastung aufwies.
+
+Whisper wird aufgrund der sehr langen Verarbeitungszeit ausgeschlossen. Bereits bei alleiniger Ausführung benötigte das Modell rund 50 Sekunden für eine zwölf Sekunden lange Aufnahme.
+
+Whistle verarbeitet die Aufnahme zwar schneller als in Echtzeit, beansprucht dabei jedoch nahezu alle vier CPU-Kerne. Bei gleichzeitiger Objekterkennung ist deshalb mit erheblichen Leistungseinbussen zu rechnen.
+
+Vosk beansprucht dagegen nur ungefähr einen CPU-Kern und lässt somit deutlich mehr Ressourcen für die Bildverarbeitung frei.
+
+Die Unterscheidung zwischen eigenständigen Sprachbefehlen und Wörtern innerhalb gewöhnlicher Sätze muss noch verbessert werden. Auch die Erkennung über ein Mikrofon im Livebetrieb steht noch aus.
 // TODO: Picovoice Rhino – Begründung, weshalb nicht getestet.
 
 #pagebreak()
@@ -240,7 +277,7 @@ Vosk wird bevorzugt, da es die kürzeste Verarbeitungszeit und mit rund einem Ke
 
 ==== Ausgabeelemente und Verhalten
 #entscheid(
-  gewaehlt: [je nach Variante: LED-Matrix, Lautsprecher, Piezo-Buzzer; wedelnder Schwanz, neigbarer Kopf],
+  gewaehlt: [Lautsprecher (alle Varianten); zusätzlich LED-Matrix («Spass»); wedelnder Schwanz, neigbarer Kopf (je nach Variante)],
   verworfen: [Einzelne LEDs; OLED-Displays; Kreis drehen; Revier markieren],
 )
 #offen[Begründung (Eric Frick, Samuel Felder); Bezug zum akustischen Signal am Suchende (Aufgabenstellung 3.5)]
