@@ -67,6 +67,7 @@ In den Sprints 2 und 3 lag der effektive Aufwand rund 40 % unter der Schätzung.
   caption: [Aufgaben Sprint 4 «Auswahl Lösungsvarianten»],
 ) <tab-sprint4>
 
+#pagebreak()
 == Ausblick bis Meilenstein 3 <kap-ausblick>
 
 Bis Meilenstein 3 (04.12.2026) folgen die Sprints 5 und 6. @tab-ausblick zeigt die geplanten Aufgaben.

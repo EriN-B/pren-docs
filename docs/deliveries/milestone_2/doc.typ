@@ -19,8 +19,6 @@
 
 #include "chapters/projektplanung.typ"
 
-#include "chapters/anforderungsliste.typ"
-
 #include "chapters/loesungsprinzipien.typ"
 
 #include "chapters/loesungsvarianten.typ"

@@ -27,14 +27,13 @@ Zur Auswahl der optimalen Lösungskombination wurde eine Nutzwertanalyse durchge
 Im paarweisen Vergleich wurde jedes Kriterium mit jedem anderen verglichen (2 = wichtiger, 1 = gleich wichtig, 0 = weniger wichtig). Massgebend war die Frage, welches der beiden Kriterien stärker zum Erfolg im Wettbewerb beiträgt. Die Zeilensumme ergibt die Gewichtung (@tab-paarweiser-vergleich).
 
 #[
-  #set page(flipped: true)
   #figure(
     {
-      set text(size: 8pt)
+      set text(size: 7.5pt)
       set par(justify: false)
       table(
-        columns: (auto, 4cm) + (1fr,) * 13 + (auto, auto),
-        inset: (x: 3pt, y: 4pt),
+        columns: (auto, 3.4cm) + (1fr,) * 13 + (auto, auto),
+        inset: (x: 2.5pt, y: 4pt),
         align: (x, _) => if x == 1 { left + horizon } else { center + horizon },
         table.header([], [Kriterium], [Fb], [De], [An], [En], [Re], [St], [Ko], [Na], [VE], [AE], [Sp], [RE], [Si], [Σ], [%]),
       [Fb], [Fortbewegung], table.cell(fill: luma(235))[], [2], [1], [0], [1], [1], [0], [1], [1], [1], [1], [2], [1], [12], [7.7],
@@ -60,9 +59,10 @@ Im paarweisen Vergleich wurde jedes Kriterium mit jedem anderen verglichen (2 = 
 Am höchsten gewichtet ist die Energie (15.4 %), da ohne netzunabhängige Versorgung keine Funktion läuft. Es folgt die Schnittstelle / Kommunikation (12.2 %), welche die Wahrnehmung mit der Ansteuerung der Aktoren verbindet. Rechenplattform, Antriebskonzepte und Steuerung liegen mit 8.3 bis 9.6 % im Mittelfeld. Die Kriterien für das Erkennen von Befehlen und das Finden des Knochens (Navigation, visuelle Erfassung, Audioerfassung, Spracherkennung) sowie die Fortbewegung folgen mit je 7.1 bis 7.7 %. Sie bringen direkt Punkte, setzen aber Energie und Kommunikation voraus. Der Simulator (5.8 %) wird im Wettbewerb nicht bewertet. Reaktion / Emotion (1.3 %) und Design (0.6 %) sind am tiefsten gewichtet, da eine einfache Quittierung genügt und das Design nur ein Wunsch ist.
 
 // TODO: Gewichtung Reaktion/Emotion (1.3 %) kritisch prüfen: Quittierung der Befehle ist gefordert
-//       (Aufgabenstellung Kap. 2), die Endposition muss akustisch unterstützt werden (Anf. 1.13, F)
+//       (Aufgabenstellung Kap. 2), die Endposition muss akustisch unterstützt werden (Aufgabenstellung 3.5)
 //       und das Kunststück bringt bis 20 Punkte (Publikumsvoting).
 
+#pagebreak()
 == Nutzwertanalyse <kap-nutzwertanalyse>
 
 Die Varianten wurden pro Kriterium von 0 (nicht erfüllt) bis 10 (vollständig erfüllt) bewertet. Als Grundlage diente die Technologierecherche: Bewertet wurde, welche Technologie das Ziel der jeweiligen Variante am besten erreicht. Jedes Teammitglied bewertete selbständig; danach wurde der Durchschnitt bestimmt und gerundet übernommen. Der Nutzwert ergibt sich aus der Summe der mit der Gewichtung multiplizierten Bewertungen (@tab-nutzwertanalyse).
@@ -101,6 +101,7 @@ Bei den meisten Kriterien wählen alle Varianten dieselbe Ausprägung und werden
 // TODO: Kriterien Kosten/Budget und Gewicht fehlen in der NWA, obwohl Risiken R03 (Gewicht, R = 16) und
 //       R20 (Budget, R = 12) hoch bewertet sind. Ergänzen oder im Text begründen.
 
+#pagebreak()
 == Ergebnis und gewählte Lösungskombination <kap-ergebnis>
 
 Der Nutzwert beträgt bei maximal 10 Punkten 7.65 für «Schnell», 7.91 für «Stabiles System» und 8.21 für «Spass». Die Variante «Spass» liegt damit vorne, die Abstände sind jedoch gering.

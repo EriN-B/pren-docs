@@ -25,6 +25,24 @@
   },
 )
 
+
+// Legende der Variantenfarben in den Kasten-Grafiken (Farben wie in morphologischer_kasten.typ)
+#let varianten-legende = {
+  let chip(farbe, n) = box(baseline: 20%, circle(radius: 5pt, fill: farbe, inset: 0pt,
+    align(center + horizon, text(size: 6.5pt, fill: white, weight: "bold", str(n)))))
+  set text(size: 8.5pt)
+  align(center, grid(
+    columns: 4, column-gutter: 1.6em, align: horizon,
+    [#chip(rgb("#D64545"), 1) #h(0.2em) Schnell],
+    [#chip(rgb("#E8971C"), 2) #h(0.2em) Stabiles System],
+    [#chip(rgb("#2B3A55"), 3) #h(0.2em) Spass],
+    text(fill: luma(120))[grau = nicht gewählt],
+  ))
+}
+
+// Teilfunktionen (Ebene 4) nicht nummeriert und nicht im Inhaltsverzeichnis
+#show heading.where(level: 4): set heading(numbering: none, outlined: false)
+
 // ─────────────────────────────────────────────────────────────
 
 = Evaluation der Lösungsprinzipien <kap-loesungsprinzipien>
@@ -40,10 +58,19 @@ Die Lösungsfindung orientiert sich am systematischen Vorgehen nach Pahl/Beitz @
 
 Der morphologische Kasten umfasst 17 Parameter in den fünf Bereichen Mechanik, Elektronik, Wahrnehmung, Reaktion und Simulation (@fig-morph-kasten). Für jeden Parameter sind die Ausprägungen aus der Technologierecherche aufgeführt. Die farbigen Markierungen zeigen, welche Ausprägung in welcher Lösungsvariante gewählt wurde.
 
-#figure(
-  image("../assets/morphologischer-kasten.png", width: 100%),
-  caption: [Morphologischer Kasten mit den drei Lösungsvarianten],
-) <fig-morph-kasten>
+// Eigene Seite mit schmalen Rändern, damit der Kasten möglichst gross dargestellt wird
+#[
+  #set page(margin: (x: 1.5cm, top: 2.6cm, bottom: 2.2cm))
+  #pagebreak(weak: true)
+  #figure(
+    {
+      image("../assets/morphologischer-kasten.png", width: 100%)
+      v(0.4em)
+      varianten-legende
+    },
+    caption: [Morphologischer Kasten mit den drei Lösungsvarianten],
+  ) <fig-morph-kasten>
+]
 
 == Evaluation pro Teilfunktion <kap-eval-teilfunktionen>
 
@@ -75,6 +102,7 @@ Die Fortbewegung erfolgt rollend über Räder an den Beinenden; die Beine dienen
 )
 #offen[Begründung, erste Auslegung Drehmoment/Kraft (Jan Grisiger, Lee Kürsener)]
 
+#pagebreak()
 === Elektronik
 
 ==== Energie
@@ -89,7 +117,7 @@ Die Fortbewegung erfolgt rollend über Räder an den Beinenden; die Beine dienen
   gewaehlt: [Raspberry Pi 4 (4 GB)],
   verworfen: [NVIDIA Jetson Orin Nano (Budget)],
 )
-Die Modelle für Objekt- und Spracherkennung wurden auf einem Raspberry Pi 4 mit vier CPU-Kernen getestet (siehe @kap-eval-objekterkennung und @kap-eval-spracherkennung). @tab-cpu-kombination zeigt die addierte CPU-Auslastung bei gleichzeitigem Betrieb; 100 % entsprechen einem voll ausgelasteten Kern, verfügbar sind 400 %.
+Die Modelle für Objekt- und Spracherkennung wurden auf einem Raspberry Pi 4 mit vier CPU-Kernen getestet (@tab-test-objekterkennung, @tab-test-spracherkennung). @tab-cpu-kombination zeigt die addierte CPU-Auslastung bei gleichzeitigem Betrieb; 100 % entsprechen einem voll ausgelasteten Kern, verfügbar sind 400 %.
 
 #figure(
   {
@@ -127,6 +155,7 @@ Die Steuerung ist zweigeteilt: Der Raspberry Pi übernimmt Objekt-, Gesten- und 
 )
 #offen[Begründung, Protokoll (z. B. ACK/NACK, siehe Risiko R16) – Eric Frick, Samuel Felder]
 
+#pagebreak()
 === Wahrnehmung
 
 ==== Navigation
@@ -173,6 +202,7 @@ YOLOE-26n wird bevorzugt, da alle fünf Testbilder korrekt ausgewertet wurden un
 MediaPipe @mediapipe erkennt die Gelenkpunkte der Hand; anhand dieser Koordinaten werden die Gesten «Sitz», «Platz» und «Auf» klassifiziert. In Tests auf einem Laptop zeigte MediaPipe eine bessere Erkennung bei geringerem Rechenaufwand als MobileCLIP2-S2 @mobileclip. Ein Test auf dem Raspberry Pi 4 steht noch aus.
 // TODO: Testaufbau/Resultate Laptop-Test quantifizieren (Anzahl Gesten, Personen, Erkennungsrate).
 
+#pagebreak()
 ==== Audioerfassung
 #entscheid(
   gewaehlt: [USB-Mikrofon direkt am Raspberry Pi],
@@ -205,6 +235,7 @@ Whisper @whisper, Whistle und Vosk @vosk wurden auf einem Raspberry Pi 4 mit ein
 Vosk wird bevorzugt, da es die kürzeste Verarbeitungszeit und mit rund einem Kern die mit Abstand geringste CPU-Auslastung aufweist. Offen sind die Unterscheidung zwischen eigenständigen Befehlen und Wörtern in Sätzen sowie ein Test über das Mikrofon im Live-Betrieb.
 // TODO: Picovoice Rhino – Begründung, weshalb nicht getestet.
 
+#pagebreak()
 === Reaktion
 
 ==== Ausgabeelemente und Verhalten
@@ -212,7 +243,7 @@ Vosk wird bevorzugt, da es die kürzeste Verarbeitungszeit und mit rund einem Ke
   gewaehlt: [je nach Variante: LED-Matrix, Lautsprecher, Piezo-Buzzer; wedelnder Schwanz, neigbarer Kopf],
   verworfen: [Einzelne LEDs; OLED-Displays; Kreis drehen; Revier markieren],
 )
-#offen[Begründung (Eric Frick, Samuel Felder); Bezug zu Anforderung 1.13 (akustisches Signal am Suchende)]
+#offen[Begründung (Eric Frick, Samuel Felder); Bezug zum akustischen Signal am Suchende (Aufgabenstellung 3.5)]
 
 === Simulation
 

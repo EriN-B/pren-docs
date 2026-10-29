@@ -12,11 +12,26 @@
 #let offen(body) = text(fill: rgb("#b91c1c"), style: "italic")[[Offen: #body]]
 
 // Vorteile / Risiken nebeneinander
-#let vor-risiko(vorteile, risiken) = grid(
+#let vor-risiko(vorteile, risiken) = block(breakable: false, above: 0.8em, below: 1.2em, grid(
   columns: (1fr, 1fr), column-gutter: 12pt,
   [*Vorteile* #list(..vorteile)],
   [*Risiken* #list(..risiken)],
-)
+))
+
+
+// Legende der Variantenfarben in den Kasten-Grafiken (Farben wie in morphologischer_kasten.typ)
+#let varianten-legende = {
+  let chip(farbe, n) = box(baseline: 20%, circle(radius: 5pt, fill: farbe, inset: 0pt,
+    align(center + horizon, text(size: 6.5pt, fill: white, weight: "bold", str(n)))))
+  set text(size: 8.5pt)
+  align(center, grid(
+    columns: 4, column-gutter: 1.6em, align: horizon,
+    [#chip(rgb("#D64545"), 1) #h(0.2em) Schnell],
+    [#chip(rgb("#E8971C"), 2) #h(0.2em) Stabiles System],
+    [#chip(rgb("#2B3A55"), 3) #h(0.2em) Spass],
+    text(fill: luma(120))[grau = nicht gewählt],
+  ))
+}
 
 // ─────────────────────────────────────────────────────────────
 
@@ -24,14 +39,9 @@
 
 Aus dem morphologischen Kasten (@fig-morph-kasten) wurden drei Lösungsvarianten mit unterschiedlicher Zielsetzung kombiniert: «Schnell» (leicht und einfach), «Stabiles System» (robust und sicher) und «Spass» (ausdrucksstark). Viele Parameter sind in allen drei Varianten gleich gewählt, weil sich in der Evaluation eine Ausprägung klar durchgesetzt hat (@kap-gemeinsame-basis). Die Unterschiede liegen in Design, Antrieb, Energieversorgung und Reaktion (@fig-morph-unterschiede).
 
-#figure(
-  image("../assets/morphologischer-kasten-unterschiede.png", width: 100%),
-  caption: [Unterschiede und gemeinsame Basis der Lösungsvarianten],
-) <fig-morph-unterschiede>
-
 // TODO: ABGLEICH NÖTIG – Kasten und Loesungsvarianten.docx widersprechen sich bei den Ausgabeelementen:
 //       Schnell: Kasten = LED-Matrix, Word = nur Lautsprecher; Stabiles System: Kasten = «Nichts»,
-//       Word = Piezo-Buzzer. Ausserdem: Anforderung 1.13 (akustisches Signal am Suchende, F) wäre
+//       Word = Piezo-Buzzer. Ausserdem: das geforderte akustische Signal am Suchende (Aufgabenstellung 3.5) wäre
 //       bei «Stabiles System» ohne Buzzer nicht erfüllt. Kasten-Grafik ggf. neu exportieren.
 
 == Gemeinsame Basis <kap-gemeinsame-basis>
@@ -49,6 +59,22 @@ Folgende Lösungsprinzipien sind in allen drei Varianten identisch:
 
 // TODO: Navigation bei «Schnell» prüfen – ohne Rad-Encoder (DC-Motor ohne Encoder) ist Odometrie nur
 //       über IMU möglich. Bewertung «Navigation 9» in der Nutzwertanalyse für alle drei gleich?
+
+// Querformat, damit die Grafik lesbar bleibt
+#[
+  #set page(flipped: true)
+  #align(center + horizon)[
+    #figure(
+      {
+        image("../assets/morphologischer-kasten-unterschiede.png", width: 100%)
+        v(0.4em)
+        varianten-legende
+      },
+      caption: [Unterschiede und gemeinsame Basis der Lösungsvarianten],
+    ) <fig-morph-unterschiede>
+  ]
+]
+
 
 == Variante 1 «Schnell» <kap-variante-schnell>
 
@@ -71,6 +97,7 @@ _Leicht und einfach: LiPo-Akku, Radantrieb ohne Encoder, Beine nur mit Endstellu
   ([Audioausgabe abhängig vom Raspberry Pi], [Kein neigbarer Kopf: Kamerabereich evtl. zu klein]),
 )
 
+#pagebreak()
 == Variante 2 «Stabiles System» <kap-variante-stabil>
 
 _Robust und sicher: getrennte Versorgung (USV), selbsthemmender Linearaktuator, starre Beine._
@@ -92,6 +119,7 @@ _Robust und sicher: getrennte Versorgung (USV), selbsthemmender Linearaktuator, 
   ([Reaktion schwer erkennbar], [Wenig emotionales Feedback], [Kein neigbarer Kopf: Kamerabereich evtl. zu klein]),
 )
 
+#pagebreak()
 == Variante 3 «Spass» <kap-variante-spass>
 
 _Ausdrucksstark: Servobeine mit Zwischenstellungen, Lautsprecher, LED-Augen, Schwanz und Kopf._
