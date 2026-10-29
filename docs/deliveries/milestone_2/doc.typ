@@ -11,8 +11,20 @@
   logo: image("../../library/assets/hslu-logo.png"),
 )
 
+// Meilenstein 2 gemäss Aufgabenstellung (Abschnitt 4.3):
+// «Evaluation der Lösungsprinzipien, Auswahl der optimalen Lösungskombination(en)»
+// Aufbau angelehnt an die Vorlage PREN1_T15_Abgabe_Meilenstein2 (OneDrive/Vorlagen_Beispiele)
+
+#include "chapters/einleitung.typ"
+
+#include "chapters/projektplanung.typ"
+
 #include "chapters/loesungsprinzipien.typ"
 
+#include "chapters/loesungsvarianten.typ"
+
 #include "chapters/loesungskombination.typ"
+
+#include "chapters/risikoanalyse.typ"
 
 #bibliography("../../library/quellen.bib", title: "Quellenverzeichnis", style: "ieee")
