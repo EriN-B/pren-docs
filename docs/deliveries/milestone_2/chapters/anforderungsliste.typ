@@ -1,0 +1,113 @@
+// ─────────────────────────────────────────────────────────────
+//  Kapitel: Anforderungsliste
+//  Übernommen aus milestone_1/doc.typ (Stand nach Rückmeldungen MS1)
+//  und ergänzt gemäss Projektunterlagen/Dokumente/Aufgabenstellung/
+//  Anforderungsliste.docx (Version 1.3, 24.10.2026).
+//  Wird in «doc.typ» per #include eingebunden.
+// ─────────────────────────────────────────────────────────────
+
+// TODO: Anforderungsliste.docx (OneDrive) und diese Tabelle abgleichen. Die Nummerierung
+//       weicht ab: Word v1.3 enthält die MS1-Korrekturen noch nicht (1.09/1.10 doppelt,
+//       2.03 Zeitvorgaben zusammengefasst), Simulation 6.01–6.04 dort als W statt M.
+//       Eine Quelle als führend festlegen.
+
+= Anforderungsliste <kap-anforderungen>
+
+Die Anforderungsliste wurde auf Grundlage der Aufgabenstellung @aufgabe erarbeitet und ist in sechs Themengebiete gegliedert: das Gerät selbst, den Wettbewerb, das Budget, Datenschutz und gesellschaftliche Aspekte, Material und Maschinennutzung sowie die Simulation. Jede Anforderung ist einer der folgenden Kategorien zugeordnet:
+
+- *F – Festanforderung:* muss zwingend erfüllt werden.
+- *M – Mindestanforderung:* muss mindestens im angegebenen Umfang erfüllt werden.
+- *W – Wunsch:* soll nach Möglichkeit berücksichtigt werden.
+
+Zusätzlich ist pro Anforderung festgehalten, welche Fachrichtung für deren Umsetzung verantwortlich ist (M = Maschinentechnik, Et = Elektrotechnik, I = Informatik). Die vollständige Anforderungsliste ist in @tab-anforderungen dargestellt. @tab-anforderungen-aenderungen zeigt die Änderungen seit Meilenstein 1.
+
+#figure(
+  {
+    set text(size: 9pt)
+    set par(justify: false)
+    table(
+      columns: (auto, auto, 1fr, auto),
+      align: left + top,
+      table.header([Version], [Datum], [Änderung], [Verantw.]),
+      [1.1], [24.09.2026], [Erste Fassung], [Team],
+      [1.2], [25.09.2026], [Verantwortlichkeiten definiert, Anforderungen an Simulation und Umgebungskriterien im Wettbewerb präzisiert], [Team],
+      [–], [16.10.2026], [Umsetzung Rückmeldungen MS1: doppelte Anforderungen zu Gesten und Sprache entfernt, Zeitvorgaben aufgeteilt (2.03–2.05), Geschwindigkeit als Mindestanforderung], [Erin Bachmann],
+      [1.3], [24.10.2026], [Anforderung 1.13 «Akustisches Feedback» ergänzt], [Eric Frick],
+    )
+  },
+  caption: [Änderungsverlauf der Anforderungsliste],
+) <tab-anforderungen-aenderungen>
+// TODO: Versionsnummern/Daten mit Anforderungsliste.docx abstimmen (MS1-Korrekturen dort noch nicht nachgeführt; 1.13 heisst dort 1.12).
+
+#[
+  // Gruppenzeile über alle Spalten
+  #let gruppe(titel) = table.cell(colspan: 5, fill: luma(235))[*#titel*]
+  // Lange Tabelle darf über mehrere Seiten umbrechen
+  #show figure: set block(breakable: true)
+  #figure(
+    {
+      set text(size: 9pt)
+      set par(justify: false, leading: 0.55em)
+      set table.cell(breakable: false)
+      table(
+        columns: (auto, auto, 3.6cm, 1fr, auto),
+        align: (x, _) => if x == 1 or x == 4 { center + top } else { left + top },
+        table.header([Nr.], [Kat.], [Bezeichnung], [Werte / Daten / Erläuterung], [Verantw.]),
+
+        gruppe[1 Gerät (Hunde-Roboter)],
+        [1.01], [M], [Maximale Geräteabmessung], [B = 20 cm, L = 50 cm, H = 50 cm (im Startzustand); \ L = 1 m (in Aktion)], [M],
+        [1.02], [M], [Maximales Gewicht], [7 kg], [M],
+        [1.03], [F], [Autonomie], [Autonomer Roboter, ohne Internetverbindung], [Et, I],
+        [1.04], [F], [Selbständige Fortbewegung], [Fortbewegung in der Ebene; Fortbewegung über Räder ist zulässig], [alle],
+        [1.05], [W], [Design], [Tragbarer, hundeähnlicher Roboter], [M, Et],
+        [1.06], [F], [Spannungsversorgung], [Netzunabhängig], [Et],
+        [1.07], [F], [Not-Stopp], [Physischer Not-Stopp, von aussen am Chassis zugänglich], [M, Et],
+        [1.08], [M], [Objekterkennung (visuelle Suchfunktion)], [Knochen muss in einem definierten Bereich gefunden werden], [Et, I],
+        [1.09], [M], [Sitzende und liegende Position], [«Sitz» und «Platz» müssen ausgeführt werden können], [alle],
+        [1.10], [M], [Emotionen (akustisch/visuell)], [Roboter reagiert mit einer akustisch oder visuell erkennbaren Reaktion auf Befehle], [alle],
+        [1.11], [W], [Kunststück], [Roboter kann ein Kunststück ausführen], [alle],
+        [1.12], [M], [Geschwindigkeit], [Fahrgeschwindigkeit des Roboters mindestens 0.5 m/s, damit der Suchvorgang inklusive Rückkehr ins Startfeld (Aktionsweite ca. 5 m) innerhalb der Zeitvorgabe von 2 min (2.04) abgeschlossen werden kann], [M, Et],
+        [1.13], [F], [Akustisches Feedback Suchende], [Der Roboter signalisiert das Beenden der Suchfunktion (sitzende Endposition im Startfeld) mit einem akustischen Signal], [Et, I],
+
+        gruppe[2 Wettbewerb],
+        [2.01], [M], [Start der Suchfunktion], [Über Taster am Gerät oder Sprachbefehl «Such»], [alle],
+        [2.02], [F], [Objekterkennung (visuelle Suchfunktion)], [Knochen im Suchfeld finden (Kreissegment 30°, r = 5 m)], [alle],
+        [2.03], [M], [Zeit Bereitstellung], [Roboter ist vor dem Start innerhalb von max. 1 min im Startfeld startklar], [alle],
+        [2.04], [M], [Zeit Suchvorgang], [Ab Befehl «Such» bzw. Taster bis zur sitzenden Position im Startfeld (Umdrehen, Knochen finden und berühren, Fund melden, Rückkehr): max. 2 min; danach wird der Versuch abgebrochen], [alle],
+        [2.05], [M], [Zeit Kunststück], [Das Kunststück dauert max. 1 min], [alle],
+        [2.06], [M], [Gestenerkennung], [Erkennen der drei Handzeichen «Sitz», «Platz» und «Auf»], [I],
+        [2.07], [M], [Sprachsteuerung], [Erkennen der vier Wörter «Hier», «Brav», «Sitz» und «Such» von Angesicht zu Angesicht auf 0.5–2 m Abstand], [I],
+        [2.08], [M], [Interaktionsbereich], [Kreis mit r = 1.5 m], [alle],
+        [2.09], [F], [Kunststück], [Roboter kann ein Kunststück ausführen], [alle],
+        [2.10], [M], [Umgebungstemperatur], [Roboter funktioniert indoor bei Raumtemperatur von 10 °C bis 35 °C], [alle],
+        [2.11], [M], [Umgebungslärm], [Akustischer Lärm im Wettbewerb wird gering gehalten], [Dozierende],
+        [2.12], [M], [Belichtung], [Roboter funktioniert indoor bei Tageslicht], [alle],
+
+        gruppe[3 Budget],
+        [3.01], [M], [Gesamtbudget], [Für das gesamte Projekt stehen CHF 500.– zur Verfügung. In PREN1 dürfen davon maximal CHF 200.– ausgegeben werden, inklusive Kaufteile und Software.], [CFO],
+        [3.02], [F], [Nicht kostenrelevante Mittel], [Private Laptops, Computer, Smartphones, Tablets sowie Netz- und Ladegeräte sind von der Kostenrechnung ausgenommen, sofern sie nicht eigens für das Projekt gekauft wurden.], [–],
+
+        gruppe[4 Datenschutz, Nachhaltigkeit und gesellschaftliche Aspekte],
+        [4.01], [F], [Datenschutz], [Konzept für die Nutzung von Kamera-, Audio- und weiteren Sensordaten sowie von KI], [I],
+        [4.02], [F], [Datensicherheit], [Schutz vor unbeabsichtigtem Zugriff], [I],
+        [4.03], [M], [Gesellschaftliche Aspekte], [Folgen eines interaktiven Roboters werden beachtet], [alle],
+        [4.04], [M], [Verantwortungsvoller Umgang mit KI], [Risiken und Grenzen des KI-Einsatzes werden beachtet], [alle],
+
+        gruppe[5 Material und Maschinennutzung],
+        [5.01], [F], [Normteile], [Normteile (z. B. Schrauben, Widerstände) werden kostenlos aus der HSLU-Werkstatt bezogen], [M, Et],
+        [5.02], [F], [Gesponserte Komponenten], [Gesponserte Komponenten dürfen verwendet werden. Sie werden zur Wahrung der Chancengleichheit zum Marktpreis in die Kostenrechnung einbezogen.], [alle],
+        [5.03], [F], [Rapid Prototyping], [Bauteile können mit den 3D-Druckern der HSLU oder mit privaten Geräten gedruckt werden; die verarbeitete Menge muss ausgewiesen werden], [M, Et],
+        [5.04], [M], [3D-Druck], [Maximal 25 h Maschinenlaufzeit am 3D-Drucker], [M, Et],
+        [5.05], [M], [Lasergerät], [Maximal 1 h Maschinenlaufzeit am Lasergerät], [M],
+        [5.06], [M], [Werkstattpersonal], [Maximal je 10 h Arbeitszeit des Werkstattpersonals Maschinentechnik und Elektrotechnik], [M, Et],
+
+        gruppe[6 Simulation],
+        [6.01], [M], [Visualisierung], [Prozessschritte, Befehlserkennung und Suche werden visualisiert], [I],
+        [6.02], [M], [Hardware-Abstraktion], [Der Zustandsautomat läuft im Simulator und auf dem Roboter. Kamera, Mikrofon und Motoren sind über austauschbare Schnittstellen angebunden.], [I],
+        [6.03], [M], [Log-Wiedergabe], [Aufgezeichnete Läufe des echten Roboters (Zustände, Erkennungen, Position) können im Simulator abgespielt und analysiert werden], [I],
+        [6.04], [M], [Testszenarien], [Sprach- und Gestenbefehle sind auslösbar, die Knochenposition im Suchfeld ist frei einstellbar], [I],
+      )
+    },
+    caption: [Anforderungsliste (Stand Meilenstein 2)],
+  ) <tab-anforderungen>
+]
