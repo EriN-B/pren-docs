@@ -107,22 +107,3 @@ Bei den meisten Kriterien wählen alle Varianten dieselbe Ausprägung und werden
 == Ergebnis und gewählte Lösungskombination <kap-ergebnis>
 
 Der Nutzwert beträgt bei maximal 10 Punkten 7.65 für «Schnell», 7.91 für «Stabiles System» und 8.21 für «Spass». Die Variante «Spass» liegt damit vorne, die Abstände sind jedoch gering.
-
-// TODO: Entscheid des Teams festhalten: Wird «Spass» unverändert weiterverfolgt oder eine optimierte
-//       Kombination (z. B. Spass mit Elementen aus «Stabiles System»)? Begründung inkl. Gewicht (7 kg),
-//       Budget (siehe PREN-Budget.xlsx: PREN1 CHF 199.80 von 200.–) und Risiken.
-#offen[Gewählte Lösungskombination und Begründung]
-
-// TODO: Optional Sensitivitätsanalyse: Ändert sich die Rangfolge bei anderer Gewichtung
-//       (z. B. Reaktion/Emotion höher)? Bei so kleinen Abständen empfehlenswert.
-
-=== Gesamtkonzept der gewählten Lösung <kap-gesamtkonzept>
-
-#offen[Kurzbeschreibung des Gesamtkonzepts, Skizze/Blockschaltbild (Blockschaltbild folgt in Sprint 5)]
-
-=== Kostenschätzung <kap-kosten>
-
-// TODO: Budget aus PREN-Budget.xlsx übernehmen (Stand: total CHF 344.80 von 500.–, PREN1 CHF 199.80
-//       von 200.–). Achtung: Budget enthält Raspberry Pi 4 für CHF 25.– (Lagermaterial 50 %?) und
-//       Servos für Beine/Kopf/Schwanz – entspricht Variante «Spass». Mit gewählter Variante abgleichen.
-#offen[Kostenübersicht der gewählten Lösung]
