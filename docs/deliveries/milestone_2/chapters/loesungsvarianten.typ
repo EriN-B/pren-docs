@@ -79,7 +79,7 @@ Diese Trennung gewährleistet, dass zeitkritische Abläufe unabhängig vom Betri
 
 *Objekterkennung.* Für die Erkennung des Knochens kommt das KI-Modell YOLOE-26n zum Einsatz. Dieses wird im NCNN-Format auf dem Raspberry Pi ausgeführt und verarbeitet die Bilder der RGB-Kamera. Das Modell benötigt kein zusätzliches Training und erkennt den Knochen anhand vordefinierter Objektbeschreibungen. Die erkannten Objekte werden durch Bounding Boxes im Kamerabild lokalisiert.
 
-Bei bisherigen Tests auf dem Raspberry Pi 4 konnte das Modell durchschnittlich 4.2 Bilder pro Sekunde verarbeiten und alle fünf Testbilder korrekt auswerten (@tab-test-objekterkennung).
+Bei bisherigen Tests auf dem Raspberry Pi 4 konnte das Modell durchschnittlich 4.2 Bilder pro Sekunde verarbeiten und alle fünf Testbilder korrekt auswerten.
 #vor-risiko(
   ([Kein zusätzliches Training des Modells erforderlich], [Gute Erkennungsresultate bei bisherigen Tests], [Deutlich schnellere Verarbeitung als YOLO-World]),
   ([Hohe CPU-Auslastung bei der Bilderkennung], [Erkennung noch nicht mit der endgültigen Kamera getestet], [Zuverlässigkeit bei unterschiedlichen Lichtverhältnissen und Knochenpositionen noch unklar]),
@@ -87,7 +87,7 @@ Bei bisherigen Tests auf dem Raspberry Pi 4 konnte das Modell durchschnittlich 4
 
 *Gestenerkennung.* Für die Erkennung der drei Handgesten «Sitz», «Platz» und «Auf» wird MediaPipe Hand Landmarker verwendet. Das Modell erkennt die Gelenkpunkte der Hand und liefert deren Koordinaten. Anhand dieser Positionen werden die einzelnen Gesten durch einen k-Nearest-Neighbors-Klassifikator unterschieden und den entsprechenden Roboterbefehlen zugeordnet.
 
-MediaPipe wurde bereits auf einem Laptop getestet und aufgrund des geringen Rechenaufwands und der Qualität gegenüber MobileCLIP2-S2 bevorzugt (@kap-eval-teilfunktionen).
+MediaPipe wurde bereits auf einem Laptop getestet und aufgrund des geringen Rechenaufwands und der Qualität gegenüber MobileCLIP2-S2 bevorzugt.
 #vor-risiko(
   ([Geringer Rechenaufwand im Vergleich zu MobileCLIP2-S2], [Verwendung derselben RGB-Kamera wie bei der Objekterkennung], [Gesten können durch eigene Logik definiert und angepasst werden]),
   ([Gestenerkennung wurde noch nicht auf dem Raspberry Pi 4 getestet], [Ähnliche Fingerstellungen können zu Fehlinterpretationen führen], [Zusätzlicher Implementierungsaufwand für die Unterscheidung der Gesten]),
@@ -95,7 +95,7 @@ MediaPipe wurde bereits auf einem Laptop getestet und aufgrund des geringen Rech
 
 *Spracherkennung.* Für die Spracherkennung wird die Software Vosk auf dem Raspberry Pi eingesetzt. Die über das USB-Mikrofon aufgenommenen Sprachsignale werden lokal verarbeitet und auf die vier definierten Befehle «Hier», «Brav», «Sitz» und «Such» überprüft. Erkannte Befehle werden anschliessend an die Steuerungslogik weitergegeben.
 
-Bei bisherigen Tests auf dem Raspberry Pi 4 konnte Vosk eine Audioaufnahme von 12.14 Sekunden innerhalb von 2.76 Sekunden verarbeiten. Dabei wurde durchschnittlich ungefähr ein CPU-Kern ausgelastet. Im Vergleich zu Whisper und Whistle benötigt Vosk somit deutlich weniger Rechenleistung (@tab-test-spracherkennung).
+Bei bisherigen Tests auf dem Raspberry Pi 4 konnte Vosk eine Audioaufnahme von 12.14 Sekunden innerhalb von 2.76 Sekunden verarbeiten. Dabei wurde durchschnittlich ungefähr ein CPU-Kern ausgelastet. Im Vergleich zu Whisper und Whistle benötigt Vosk somit deutlich weniger Rechenleistung.
 #vor-risiko(
   ([Geringer Rechenaufwand im Vergleich zu Whisper und Whistle], [Erfolgreiche Erkennung aller bisherigen Testwörter]),
   ([Erkennung über das Mikrofon im Livebetrieb noch nicht getestet], [Gleichzeitige Ausführung mit anderen Modellen könnte die CPU überlasten]),
