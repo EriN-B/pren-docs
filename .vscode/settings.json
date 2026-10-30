@@ -1,4 +1,7 @@
 {
   "tinymist.rootPath": "${workspaceFolder}/docs",
-  "tinymist.fontPaths": ["${workspaceFolder}/docs/library/fonts"]
+  "tinymist.fontPaths": [
+    "${workspaceFolder}/docs/library/fonts"
+  ],
+  "tinymist.projectResolution": "lockDatabase"
 }
