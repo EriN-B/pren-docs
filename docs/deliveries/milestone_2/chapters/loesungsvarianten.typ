@@ -263,7 +263,12 @@ Die Ablauflogik wird als Zustandsautomat mit der Bibliothek python-statemachine 
   ([Reaktion], [nur Lautsprecher, keine Bewegungen]),
 ))
 
-#offen[Skizze der Variante (Lee Kürsener, Jan Grisiger)]
+Die Anordnung der Komponenten ist in @fig-skizze-schnell dargestellt.
+
+#figure(
+  image("../assets/skizze-variante-schnell.jpg", width: 100%),
+  caption: [Prinzipskizze Variante 1 «Schnell»],
+) <fig-skizze-schnell>
 
 === Mechanik <kap-schnell-mechanik>
 
@@ -316,7 +321,12 @@ Simulator und Ablauflogik entsprechen der gemeinsamen Basis (@kap-basis-simulati
   ([Reaktion], [Lautsprecher, wedelnder Schwanz]),
 ))
 
-#offen[Skizze der Variante (Lee Kürsener, Jan Grisiger)]
+Die Anordnung der Komponenten ist in @fig-skizze-stabil dargestellt.
+
+#figure(
+  image("../assets/skizze-variante-stabil.jpg", width: 100%),
+  caption: [Prinzipskizze Variante 2 «Stabiles System»],
+) <fig-skizze-stabil>
 
 === Mechanik <kap-stabil-mechanik>
 
@@ -335,7 +345,6 @@ Für die Energieversorgung wird bei dieser Variante eine Kombination aus LiPo- o
   ([Hoher Preis],),
 )
 
-#pagebreak()
 === Reaktion <kap-stabil-reaktion>
 
 // Teamentscheid 29.10.2026: Lautsprecher ist in allen Varianten Pflicht. Loesungsvarianten.docx
@@ -368,7 +377,12 @@ Simulator und Ablauflogik entsprechen der gemeinsamen Basis (@kap-basis-simulati
   ([Reaktion], [Lautsprecher, LED-Augen, wedelnder Schwanz, neigbarer Kopf]),
 ))
 
-#offen[Skizze der Variante (Lee Kürsener, Jan Grisiger)]
+Die Anordnung der Komponenten ist in @fig-skizze-spass dargestellt.
+
+#figure(
+  image("../assets/skizze-variante-spass.jpg", width: 100%),
+  caption: [Prinzipskizze Variante 3 «Spass»],
+) <fig-skizze-spass>
 
 === Mechanik <kap-spass-mechanik>
 
